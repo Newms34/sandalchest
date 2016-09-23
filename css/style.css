@@ -1,0 +1,135 @@
+html,body{
+	width:100%;
+	height:100%;
+	margin:0;
+}
+#sandalchest-modal-bg{
+  width:100%;
+  height:100vh;
+  z-index:1000;
+  position:absolute;
+  left:0;
+  top:0;
+  background:rgba(0,0,0,.5);
+  display:none;
+  font-family:'Bad Script',cursive;
+}
+.sandalchest-modal-main{
+  padding:0;
+  position:absolute;
+  top:40vh;
+  height:20vh;
+  background:#f1f1d4;
+  box-shadow:5px 5px 6px #000;
+  color:#000;
+  font-size:larger;
+}
+.sandalchest-modal-main h2{
+  position:relative;
+  width:100%;
+  text-align:center;
+  font-family:'Bad Script',cursive;
+}
+.sandalchest-modal-scroll-top{
+  width:100%;
+  height:50%;
+  background:linear-gradient(#a1a174,#d1d1c4,#a1a174);
+  z-index:9999;
+  position:absolute;
+  box-shadow:0 6px 18px #51514F;
+  top:0px;
+}
+.sandalchest-modal-scroll-bot{
+  width:100%;
+  height:50%;
+  background:linear-gradient(#a1a174,#d1d1c4,#a1a174);
+  z-index:8888;
+  position:absolute;
+  bottom:0px;
+  box-shadow:0 -6px 18px #51514F;
+}
+.sandalchest-modal-scroll-right{
+  position:absolute;
+  right:-1.5%;
+  height:100%;
+  width:3%;
+  border-radius:50%;
+  background:linear-gradient(#a1a174,#515111,#a1a174);
+  z-index:9999;
+}
+.sandalchest-modal-scroll-right{
+  position:absolute;
+  right:-1.5%;
+  height:100%;
+  width:3%;
+  border-radius:50%;
+  background:linear-gradient(#a1a174,#515111,#a1a174);
+  z-index:9999;
+}
+.sandalchest-modal-scroll-left{
+  position:absolute;
+  left:-1.5%;
+  height:100%;
+  width:3%;
+  border-radius:50%;
+  background:linear-gradient(#a1a174,#d1d1c4,#a1a174);
+  z-index:9999;
+}
+.btn-stone{
+  background:#ccc;
+  color:#999;
+  font-weight:bold;
+  text-shadow: -1px -1px 1px #000,1px 1px 1px #777,-1px -1px 1px #000,1px 1px 1px #777;
+  border:3px outset #ccc;
+  transition-duration:.2s;
+  position:absolute;
+  bottom:2%;
+  font-size:large;
+  width:20%;
+}
+.btn-stone:hover{
+  background:#aaa;
+}
+.one-but{
+  left:40%;
+}
+.two-but{
+  display:inline-block;
+  left:29%;
+}
+.two-but-two{
+  display:inline-block;
+  left:51%
+}
+#sandalchest-input{
+  display:block;
+  width:50%;
+  background:#f1f1d2;
+  border:1px dotted #857047;
+}
+.sandalchest-input:focus{
+  border:none;
+}
+.sandalchest-text-main{
+  background:#f5f5d9;
+  padding:5px;
+  margin-left:2%;
+  width:95%;
+}
+
+/* cyrillic */
+@font-face {
+  font-family: 'Bad Script';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Bad Script Regular'), local('BadScript-Regular'), url(https://fonts.gstatic.com/s/badscript/v5/xvnrV3H3fZsc-fSw6fOJeCEAvth_LlrfE80CYdSH47w.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin */
+@font-face {
+  font-family: 'Bad Script';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Bad Script Regular'), local('BadScript-Regular'), url(https://fonts.gstatic.com/s/badscript/v5/rL_b2ND61EQmMOJ8CRr1fvk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
