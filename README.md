@@ -33,20 +33,20 @@ You'll also need a few external files, including jQuery and Bootstrap. But know 
 ##Usage
 Once you've included the files above in your HTML, call them at any point in your JS by just running:
 
-```sandalchest.alert(args)```
+`sandalchest.alert(args)`
 
 or
 
-```sandalchest.confirm(args)```
+`sandalchest.confirm(args)`
 
 or
 
-```sandalchest.prompt(args)```
+`sandalchest.prompt(args)`
 
 You'll need to give Sandal Chest at least one argument if you want it to actually do anything. Note that these are all optional.
  - A title for your dialog. That's 'Alerts are cool!' in the screenie below.
  - Some text for your dialog. That's 'All the cool kids are using alerts!' in the screenie below.
- - A callback function. If you use ```sandalchest.prompt()``` or ```sandalchest.confirm()```, your input will be passed to this function. 
+ - A callback function. If you use `sandalchest.prompt()` or `sandalchest.confirm()`, your input will be passed to this function. 
  - An options object (see below);
 
 These can be included in any order. However, there are a few specifics:
@@ -58,13 +58,13 @@ These can be included in any order. However, there are a few specifics:
   - Not supplying the text will default it to 'No content!'.
   - Not supplying the options object will run the function with default options (speed of 1s, rotation offset of 2 degrees).
 
-The options object (currently!) has two options: Speed and rotation. The defaults for these are 1000ms and 2 degrees, but they can be changed by passing something like ```{speed:3000,rotation:20}``` to the function to, for example, run a dialog with a 3-second intro duration, and a rotation of 20 degrees.
+The options object (currently!) has two options: Speed and rotation. The defaults for these are 1000ms and 2 degrees, but they can be changed by passing something like `{speed:3000,rotation:20}` to the function to, for example, run a dialog with a 3-second intro duration, and a rotation of 20 degrees.
 
 Here's a nice screenshot for you:
 ![Ye Olde User Interface Example](./tests/screenie.png)
  
 ##Examples
-I've included an HTML file in the ```./tests/``` folder if you want to see an example of each of three functions.
+I've included an HTML file in the `./tests/` folder if you want to see an example of each of three functions.
 
 ##Credits
  - Firstly, and most importantly, credit is due to the incredible folks over at [Bootbox](http://bootboxjs.com/), including [Nick Payne](http://twitter.com/makeusabrew). Their stuff is awesome: I'm just piggybacking off of it.
