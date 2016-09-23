@@ -26,7 +26,7 @@ Then slap that js file into your html:
 
 And finally squeeze that css in there too:
 
-```<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Bad+Script">```
+```<link rel="stylesheet" type="text/css" href="./sandal-chest/sandal-chest.css">```
 
 You'll also need a few external files, including jQuery and Bootstrap. But know you, you probably already had those in your project anyway.
 

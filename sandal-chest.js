@@ -1,16 +1,15 @@
 var sandalchest = {};
-var myCb = function(inp) {
-    $('#outptTest').val(inp);
-}
+
 sandalchest.drawDiv = function(opts, type, cb) {
     var theSpeed = opts.options && opts.options.speed || 1000;
+    var theRot = opts.options && opts.options.rotation || 2;
     var modlBg = document.createElement('div');
     modlBg.id = 'sandalchest-modal-bg';
     modlBg.innerHTML = '&nbsp;';
     var modalBox = document.createElement('div');
     modalBox.className = 'col-sm-12 col-md-4 col-md-offset-4 sandalchest-modal-main';
     modalBox.innerHTML = '<h2>' + (opts.title || 'Untitled') + '</h2>' + '<div class="sandalchest-text-main">' + (opts.text || 'No content!') + '</div>';
-
+    modalBox.style.transform = 'rotateZ('+theRot+'deg)';
     //modal finished! Append!
     $(modlBg).append(modalBox)
         //now add the special effects (scroll ends). top first
@@ -245,19 +244,3 @@ sandalchest.prompt = function(title, text, op, cb) {
     sandalchest.drawDiv(opts, 2, cb);
 }
 
-//TEST FNS
-
-document.querySelector('#doAlrt').onclick = function() {
-    sandalchest.alert('Alerts Are Cool!', 'All the cool kids are using alerts!', myCb);
-}
-document.querySelector('#doSlowAlrt').onclick = function() {
-    sandalchest.alert({speed:4000},'Alerts Are Cool!', 'All the cool kids are using alerts!', myCb);
-}
-
-document.querySelector('#doConf').onclick = function() {
-    sandalchest.confirm('Whoa!', 'Are you sure you wanna use SandalChest?', myCb);
-}
-
-document.querySelector('#doProm').onclick = function() {
-    sandalchest.prompt('Prompts too!', 'No more ugly vanilla window.prompts!', myCb);
-}
