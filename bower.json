@@ -1,0 +1,26 @@
+{
+  "name": "sandal-chest",
+  "homepage": "https://github.com/Newms34/sandalchest",
+  "authors": [
+    "newms34 <newms3450@gmail.com>"
+  ],
+  "description": "Thematically Appropriate Dialogs",
+  "main": "sandal-chest.js",
+  "keywords": [
+    "dialogs",
+    "bootbox",
+    "bootstrap",
+    "alert",
+    "confirm",
+    "prompt"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "version": "0.1.0"
+}
