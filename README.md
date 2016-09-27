@@ -61,19 +61,22 @@ These can be included in any order. However, there are a few specifics:
 
 The options object has three options: Speed, rotation, and buttons. The defaults for the speed and rotation are 1000ms and 2 degrees, but they can be changed by passing something like `{speed:3000,rotation:20}` to the function to, for example, run a dialog with a 3-second intro duration, and a rotation of 20 degrees. The buttons option is explained below.
 
+Here's a nice screenshot for you:
+![Ye Olde User Interface Example](./tests/screenie.png)
+
 ##Custom Dialogs
-As for buttons, they generally follow the Bootbox model, with some minor changes:
+Sandal-chest can also do custom dialogs (with custom HTML!). This allows you to specify custom elements (such as fields), as well as buttons, each with its own behavior. The buttons generally follow the Bootbox model, with some minor changes:
 
     buttons:[{
     	text:'Hi',
     	close:true,
-    	click:function(inp){
+    	click:function(){
     		//do some stuff!
     	}
     },{
     	text:'Nevermind...',
     	close:false,
-    	click:function(inp){
+    	click:function(){
     		//erase some stuff!
     	}
     }]
@@ -84,11 +87,8 @@ The properties should be pretty self-explanatory, but they are as follows:
  - close: If true (or truthy), closes the box when this button is pressed. Set to false if this is like a 'clear form' button or something.
  - click: the callback function that's run when this button is pressed. 
 
-----
+Custom dialogs MUST be passed at least one button, and they must include both body text and title text,
 
-Here's a nice screenshot for you:
-![Ye Olde User Interface Example](./tests/screenie.png)
- 
 ##Examples
 I've included an HTML file in the `./tests/` folder if you want to see an example of each of the functions.
 
