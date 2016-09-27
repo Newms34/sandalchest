@@ -6,6 +6,7 @@
  - [What it is](#what-is-it)
  - [Installation](#installation)
  - [Usage](#usage)
+ - [Custom Dialogs](#custom-dialogs)
  - [Examples](#examples)
  - [Credits](#credits)
  - [License](#license)
@@ -58,13 +59,38 @@ These can be included in any order. However, there are a few specifics:
   - Not supplying the text will default it to 'No content!'.
   - Not supplying the options object will run the function with default options (speed of 1s, rotation offset of 2 degrees).
 
-The options object (currently!) has two options: Speed and rotation. The defaults for these are 1000ms and 2 degrees, but they can be changed by passing something like `{speed:3000,rotation:20}` to the function to, for example, run a dialog with a 3-second intro duration, and a rotation of 20 degrees.
+The options object has three options: Speed, rotation, and buttons. The defaults for the speed and rotation are 1000ms and 2 degrees, but they can be changed by passing something like `{speed:3000,rotation:20}` to the function to, for example, run a dialog with a 3-second intro duration, and a rotation of 20 degrees. The buttons option is explained below.
+
+##Custom Dialogs
+As for buttons, they generally follow the Bootbox model, with some minor changes:
+
+    buttons:[{
+    	text:'Hi',
+    	close:true,
+    	click:function(inp){
+    		//do some stuff!
+    	}
+    },{
+    	text:'Nevermind...',
+    	close:false,
+    	click:function(inp){
+    		//erase some stuff!
+    	}
+    }]
+
+The properties should be pretty self-explanatory, but they are as follows:
+
+ - text: What the button says.
+ - close: If true (or truthy), closes the box when this button is pressed. Set to false if this is like a 'clear form' button or something.
+ - click: the callback function that's run when this button is pressed. 
+
+----
 
 Here's a nice screenshot for you:
 ![Ye Olde User Interface Example](./tests/screenie.png)
  
 ##Examples
-I've included an HTML file in the `./tests/` folder if you want to see an example of each of three functions.
+I've included an HTML file in the `./tests/` folder if you want to see an example of each of the functions.
 
 ##Credits
  - Firstly, and most importantly, credit is due to the incredible folks over at [Bootbox](http://bootboxjs.com/), including [Nick Payne](http://twitter.com/makeusabrew). Their stuff is awesome: I'm just piggybacking off of it.

@@ -9,7 +9,7 @@ sandalchest.drawDiv = function(opts, type, cb) {
     var modalBox = document.createElement('div');
     modalBox.className = 'col-sm-12 col-md-4 col-md-offset-4 sandalchest-modal-main';
     modalBox.innerHTML = '<h2>' + (opts.title || ' ') + '</h2>' + '<div class="sandalchest-text-main">' + (opts.text || '') + '</div>';
-    modalBox.style.transform = 'rotateZ('+theRot+'deg)';
+    modalBox.style.transform = 'rotateZ(' + theRot + 'deg)';
     //modal finished! Append!
     $(modlBg).append(modalBox)
         //now add the special effects (scroll ends). top first
@@ -68,176 +68,241 @@ sandalchest.drawDiv = function(opts, type, cb) {
         duration: theSpeed,
         queue: false
     });
-    //now add appropriate buttons
-    var okBut = document.createElement('button');
-    var noBut = document.createElement('button');
-    var inpBox = document.createElement('input');
-    okBut.className = 'btn btn-stone two-but';
-    noBut.className = 'btn btn-stone two-but-two';
-    okBut.id = 'sandalchest-okay';
-    noBut.id = 'sandalchest-nope';
-    okBut.tabIndex = 0;
-    noBut.tabIndex = 1;
-    okBut.innerHTML = 'Okay';
-    noBut.innerHTML = 'Cancel';
-    inpBox.id = 'sandalchest-input';
-    var promptVal = null;
+    //now add appropriate buttons. first, the button box
+    var modalButtons = document.createElement('div');
+    modalButtons.className = 'sandalchest-modal-buttons';
+    $(modalBox).append(modalButtons)
 
-    if (type == 0) {
-        //alert
-        $(modalBox).append(okBut);
-        okBut.className = 'btn btn-stone one-but';
-    } else {
-        $(modalBox).append(okBut);
-        $(modalBox).append(noBut);
-        if (type == 1) {
-            //confirm
+    //'default' mode, which includes alert,prompt,confirm
+    if (type < 3) {
+        var okBut = document.createElement('button');
+        var noBut = document.createElement('button');
+        var inpBox = document.createElement('input');
+        // okBut.className = 'btn btn-stone two-but';
+        // noBut.className = 'btn btn-stone two-but-two';
+        okBut.className = 'btn btn-stone';
+        noBut.className = 'btn btn-stone';
+        okBut.id = 'sandalchest-okay';
+        noBut.id = 'sandalchest-nope';
+        okBut.tabIndex = 0;
+        noBut.tabIndex = 1;
+        okBut.innerHTML = 'Okay';
+        noBut.innerHTML = 'Cancel';
+        inpBox.id = 'sandalchest-input';
+        var promptVal = null;
+
+        $(modalButtons).append(okBut);
+        if (type == 0) {
+            //alert
+            // okBut.className = 'btn btn-stone one-but';
         } else {
-            $('.sandalchest-text-main').append('<br/><br/>').append(inpBox);
-            //prompt
-            inpBox.tabIndex = 0;
-            okBut.tabIndex = 1;
-            noBut.tabIndex = 2;
+            $(modalButtons).append(noBut);
+            if (type == 1) {
+                //confirm
+            } else {
+                $('.sandalchest-text-main').append('<br/><br/>').append(inpBox);
+                //prompt
+                inpBox.tabIndex = 0;
+                okBut.tabIndex = 1;
+                noBut.tabIndex = 2;
+            }
         }
-    }
-    document.querySelector('#sandalchest-okay').onkeyup = function(e) {
-        if (e.which == 27) {
-            $('#sandalchest-nope').click();
-        }
-    }
-    if (type < 2) {
-        document.querySelector('#sandalchest-okay').focus();
-    } else {
-        document.querySelector('#sandalchest-input').focus();
-        document.querySelector('#sandalchest-input').onkeyup = function(e) {
-            console.log(e)
+        document.querySelector('#sandalchest-okay').onkeyup = function(e) {
             if (e.which == 27) {
                 $('#sandalchest-nope').click();
-            } else if (e.which == 13) {
-                $('#sandalchest-okay').click();
             }
         }
-    }
-    okBut.onclick = function() {
-        $(modlBg).fadeOut(250, function() {
-            if (type > 1) {
-                promptVal = $('#sandalchest-input').val() || false;
-            } else if (type == 1) {
-                promptVal = true;
+        if (type < 2) {
+            document.querySelector('#sandalchest-okay').focus();
+        } else {
+            document.querySelector('#sandalchest-input').focus();
+            document.querySelector('#sandalchest-input').onkeyup = function(e) {
+                console.log(e)
+                if (e.which == 27) {
+                    $('#sandalchest-nope').click();
+                } else if (e.which == 13) {
+                    $('#sandalchest-okay').click();
+                }
             }
-            if (cb) {
-                cb(promptVal);
+        }
+        okBut.onclick = function() {
+            $(modlBg).fadeOut(250, function() {
+                if (type > 1) {
+                    promptVal = $('#sandalchest-input').val() || false;
+                } else if (type == 1) {
+                    promptVal = true;
+                }
+                if (cb) {
+                    cb(promptVal);
+                }
+                $(this).remove();
+            });
+        }
+        noBut.onclick = function() {
+            $(modlBg).fadeOut(250, function() {
+                if (cb) {
+                    cb(null);
+                }
+                console.log(null)
+                $(this).remove();
+            });
+        }
+    } else {
+        //custom mode, where we include custom functions and buttons!
+        for (var i = 0; i < opts.options.buttons.length; i++) {
+            var newBut = document.createElement('button');
+            newBut.className = 'btn btn-stone';
+            newBut.id = 'customButton' + i;
+            newBut.innerHTML = opts.options.buttons[i].text || 'Undefined';
+            if (opts.options.buttons[i].click) {
+                console.log('Applying custom cb ',opts.options.buttons[i].click)
+                newBut.onclick = opts.options.buttons[i].click;
             }
-            $(this).remove();
-        });
-    }
-    noBut.onclick = function() {
-        $(modlBg).fadeOut(250, function() {
-            if (cb) {
-                cb(null);
+            if (opts.options.buttons[i].close) {
+                //this button closes the thing
+                newBut.onmouseup = function() {
+                    $(modlBg).fadeOut(250, function() {
+                        $(this).remove();
+                    });
+                }
             }
-            console.log(null)
-            $(this).remove();
-        });
+            $(modalButtons).append(newBut);
+        }
     }
 }
 sandalchest.alert = function(title, text, op, cb) {
     //dealing with multiple param combos:
     console.log(arguments);
-    var realTitle =null;
+    var realTitle = null;
     var realText = null;
     var realOp = null;
     var realCb = null;
-    for (var i=0;i<arguments.length;i++){
-      if(typeof arguments[i]=='string' && realTitle==null){
-        realTitle = arguments[i];
-      }else if (typeof arguments[i]=='string' && realText ==null){
-        realText = arguments[i];
-      }else if(typeof arguments[i]=='string'){
-        throw new Error('Too many string params supplied!');
-      }
-      if (typeof arguments[i]=='object' && realOp == null){
-        realOp = arguments[i];
-      }else if (typeof arguments[i]=='object'){
-        throw new Error('Too many configuration objects supplied!')
-      }
-      if (typeof arguments[i]=='function' && realCb==null){
-        realCb = arguments[i];
-      }else if (typeof arguments[i]=='function'){
-        throw new Error('You can only have one callback function!')
-      }
+    for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] == 'string' && realTitle == null) {
+            realTitle = arguments[i];
+        } else if (typeof arguments[i] == 'string' && realText == null) {
+            realText = arguments[i];
+        } else if (typeof arguments[i] == 'string') {
+            throw new Error('Too many string params supplied!');
+        }
+        if (typeof arguments[i] == 'object' && realOp == null) {
+            realOp = arguments[i];
+        } else if (typeof arguments[i] == 'object') {
+            throw new Error('Too many configuration objects supplied!')
+        }
+        if (typeof arguments[i] == 'function' && realCb == null) {
+            realCb = arguments[i];
+        } else if (typeof arguments[i] == 'function') {
+            throw new Error('You can only have one callback function!')
+        }
     }
     var opts = {
-      title:realTitle,
-      text:realText,
-      options:realOp
+        title: realTitle,
+        text: realText,
+        options: realOp
     }
     sandalchest.drawDiv(opts, 0, realCb);
 }
 sandalchest.confirm = function(title, text, op, cb) {
     //dealing with multiple param combos:
     console.log(arguments);
-    var realTitle =null;
+    var realTitle = null;
     var realText = null;
     var realOp = null;
     var realCb = null;
-    for (var i=0;i<arguments.length;i++){
-      if(typeof arguments[i]=='string' && realTitle==null){
-        realTitle = arguments[i];
-      }else if (typeof arguments[i]=='string' && realText ==null){
-        realText = arguments[i];
-      }else if(typeof arguments[i]=='string'){
-        throw new Error('Too many string params supplied!');
-      }
-      if (typeof arguments[i]=='object' && realOp == null){
-        realOp = arguments[i];
-      }else if (typeof arguments[i]=='object'){
-        throw new Error('Too many configuration objects supplied!')
-      }
-      if (typeof arguments[i]=='function' && realCb==null){
-        realCb = arguments[i];
-      }else if (typeof arguments[i]=='function'){
-        throw new Error('You can only have one callback function!')
-      }
+    for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] == 'string' && realTitle == null) {
+            realTitle = arguments[i];
+        } else if (typeof arguments[i] == 'string' && realText == null) {
+            realText = arguments[i];
+        } else if (typeof arguments[i] == 'string') {
+            throw new Error('Too many string params supplied!');
+        }
+        if (typeof arguments[i] == 'object' && realOp == null) {
+            realOp = arguments[i];
+        } else if (typeof arguments[i] == 'object') {
+            throw new Error('Too many configuration objects supplied!')
+        }
+        if (typeof arguments[i] == 'function' && realCb == null) {
+            realCb = arguments[i];
+        } else if (typeof arguments[i] == 'function') {
+            throw new Error('You can only have one callback function!')
+        }
     }
     var opts = {
-      title:realTitle,
-      text:realText,
-      options:realOp
+        title: realTitle,
+        text: realText,
+        options: realOp
     }
     sandalchest.drawDiv(opts, 1, realCb);
 }
 sandalchest.prompt = function(title, text, op, cb) {
     //dealing with multiple param combos:
-    console.log(arguments);
-    var realTitle =null;
+    var realTitle = null;
     var realText = null;
     var realOp = null;
     var realCb = null;
-    for (var i=0;i<arguments.length;i++){
-      if(typeof arguments[i]=='string' && realTitle==null){
-        realTitle = arguments[i];
-      }else if (typeof arguments[i]=='string' && realText ==null){
-        realText = arguments[i];
-      }else if(typeof arguments[i]=='string'){
-        throw new Error('Too many string params supplied!');
-      }
-      if (typeof arguments[i]=='object' && realOp == null){
-        realOp = arguments[i];
-      }else if (typeof arguments[i]=='object'){
-        throw new Error('Too many configuration objects supplied!')
-      }
-      if (typeof arguments[i]=='function' && realCb==null){
-        realCb = arguments[i];
-      }else if (typeof arguments[i]=='function'){
-        throw new Error('You can only have one callback function!')
-      }
+    for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] == 'string' && realTitle == null) {
+            realTitle = arguments[i];
+        } else if (typeof arguments[i] == 'string' && realText == null) {
+            realText = arguments[i];
+        } else if (typeof arguments[i] == 'string') {
+            throw new Error('Too many string params supplied!');
+        }
+        if (typeof arguments[i] == 'object' && realOp == null) {
+            realOp = arguments[i];
+        } else if (typeof arguments[i] == 'object') {
+            throw new Error('Too many configuration objects supplied!')
+        }
+        if (typeof arguments[i] == 'function' && realCb == null) {
+            realCb = arguments[i];
+        } else if (typeof arguments[i] == 'function') {
+            throw new Error('You can only have one callback function!')
+        }
     }
     var opts = {
-      title:realTitle,
-      text:realText,
-      options:realOp
+        title: realTitle,
+        text: realText,
+        options: realOp
     }
     sandalchest.drawDiv(opts, 2, realCb);
 }
-
+sandalchest.dialog = function(title, text, op, cb) {
+    var totalText = 0;
+    var realTitle = null;
+    var realText = null;
+    var realOp = null;
+    var realCb = null;
+    for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] == 'string' && realTitle == null) {
+            realTitle = arguments[i];
+        } else if (typeof arguments[i] == 'string' && realText == null) {
+            realText = arguments[i];
+        } else if (typeof arguments[i] == 'string') {
+            throw new Error('Too many string params supplied!');
+        }
+        if (typeof arguments[i] == 'object' && realOp == null) {
+            realOp = arguments[i];
+        } else if (typeof arguments[i] == 'object') {
+            throw new Error('Too many configuration objects supplied!')
+        }
+        if (typeof arguments[i] == 'function' && realCb == null) {
+            realCb = arguments[i];
+        } else if (typeof arguments[i] == 'function') {
+            throw new Error('You can only have one callback function!')
+        }
+    }
+    if (!realOp || !realOp.buttons) {
+        throw new Error('Custom dialog specified without any buttons!')
+    }
+    if (!realTitle || !realText){
+        throw new Error('Custom dialogs MUST have both a title and body text!');
+    }
+    var opts = {
+        title: realTitle,
+        text: realText,
+        options: realOp
+    }
+    sandalchest.drawDiv(opts, 3, realCb);
+}

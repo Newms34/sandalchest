@@ -82,24 +82,14 @@ html,body{
   text-shadow: -1px -1px 1px #000,1px 1px 1px #777,-1px -1px 1px #000,1px 1px 1px #777;
   border:3px outset #ccc;
   transition-duration:.2s;
-  position:absolute;
+  position:relative;
   bottom:2%;
+  margin-right:2%;
   font-size:large;
   width:20%;
 }
 .btn-stone:hover{
   background:#aaa;
-}
-.one-but{
-  left:40%;
-}
-.two-but{
-  display:inline-block;
-  left:29%;
-}
-.two-but-two{
-  display:inline-block;
-  left:51%
 }
 #sandalchest-input{
   display:block;
@@ -115,6 +105,13 @@ html,body{
   padding:5px;
   margin-left:2%;
   width:95%;
+}
+
+.sandalchest-modal-buttons{
+  width:100%;
+  position:absolute;
+  bottom:2%;
+  text-align:center;
 }
 
 /* cyrillic */
