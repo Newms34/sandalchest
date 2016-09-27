@@ -8,7 +8,7 @@ sandalchest.drawDiv = function(opts, type, cb) {
     modlBg.innerHTML = '&nbsp;';
     var modalBox = document.createElement('div');
     modalBox.className = 'col-sm-12 col-md-4 col-md-offset-4 sandalchest-modal-main';
-    modalBox.innerHTML = '<h2>' + (opts.title || 'Untitled') + '</h2>' + '<div class="sandalchest-text-main">' + (opts.text || 'No content!') + '</div>';
+    modalBox.innerHTML = '<h2>' + (opts.title || ' ') + '</h2>' + '<div class="sandalchest-text-main">' + (opts.text || '') + '</div>';
     modalBox.style.transform = 'rotateZ('+theRot+'deg)';
     //modal finished! Append!
     $(modlBg).append(modalBox)
@@ -170,10 +170,9 @@ sandalchest.alert = function(title, text, op, cb) {
     var opts = {
       title:realTitle,
       text:realText,
-      cb:realCb,
       options:realOp
     }
-    sandalchest.drawDiv(opts, 0, cb);
+    sandalchest.drawDiv(opts, 0, realCb);
 }
 sandalchest.confirm = function(title, text, op, cb) {
     //dealing with multiple param combos:
@@ -204,10 +203,9 @@ sandalchest.confirm = function(title, text, op, cb) {
     var opts = {
       title:realTitle,
       text:realText,
-      cb:realCb,
       options:realOp
     }
-    sandalchest.drawDiv(opts, 1, cb);
+    sandalchest.drawDiv(opts, 1, realCb);
 }
 sandalchest.prompt = function(title, text, op, cb) {
     //dealing with multiple param combos:
@@ -238,9 +236,8 @@ sandalchest.prompt = function(title, text, op, cb) {
     var opts = {
       title:realTitle,
       text:realText,
-      cb:realCb,
       options:realOp
     }
-    sandalchest.drawDiv(opts, 2, cb);
+    sandalchest.drawDiv(opts, 2, realCb);
 }
 
